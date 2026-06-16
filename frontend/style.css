@@ -1,0 +1,684 @@
+/*
+   FAQ-Tool im alten FH-Aachen/Praktinfo-Stil.
+   Die Gestaltung ist bewusst schlicht, damit das Tool in die bestehende Seite passt.
+*/
+
+:root {
+    --fh-green: #00a99d;
+    --border: #000000;
+    --light-bg: #f4f4f4;
+    --error: #cc0000;
+    --success: #006b38;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    color: #000;
+    background: #fff;
+}
+
+a {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 2px 8px;
+    border: 1px solid #777;
+    background: #efefef;
+    color: #000;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: #ddd;
+}
+
+input,
+select,
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    border: 1px solid #777;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 110px;
+    width: 100%;
+    resize: vertical;
+}
+
+#seite {
+    width: 100%;
+    min-height: 100vh;
+}
+
+#header {
+    min-height: 18px;
+}
+
+#topnavi {
+    padding: 4px 6px 0 6px;
+}
+
+#headnavi {
+    padding: 0 6px 4px 6px;
+}
+
+#headnavi span,
+#headnavi a {
+    margin-right: 3px;
+}
+
+#logo {
+    width: 90px;
+    min-height: 194px;
+    float: left;
+    margin: 0 10px 20px 6px;
+}
+
+#logo img {
+    width: 57px;
+    height: 194px;
+}
+
+#inhalt {
+    margin-left: 6px;
+    padding-top: 24px;
+    max-width: 980px;
+}
+
+body.full-layout #inhalt {
+    margin-left: 120px;
+}
+
+body.embed-layout #inhalt {
+    margin: 0;
+    padding: 6px;
+    max-width: none;
+}
+
+h1, h2, h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 22px;
+    margin: 0 0 16px 0;
+}
+
+h2 {
+    font-size: 19px;
+    margin: 22px 0 10px 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 18px 0 8px 0;
+}
+
+.faq-actions,
+.faq-filter,
+.form-row,
+.admin-toolbar {
+    margin: 10px 0;
+}
+
+.faq-filter label,
+.form-row label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.faq-filter input,
+.faq-filter select,
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    max-width: 700px;
+}
+
+.hidden-field {
+    display: none;
+}
+
+.message {
+    padding: 8px;
+    border: 1px solid #777;
+    background: var(--light-bg);
+    margin: 10px 0;
+    max-width: 850px;
+}
+
+.message.success {
+    color: var(--success);
+    border-color: var(--success);
+}
+
+.message.error {
+    color: var(--error);
+    border-color: var(--error);
+}
+
+.faq-table {
+    border-collapse: collapse;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 980px;
+}
+
+.faq-table th,
+.faq-table td {
+    border: 1px solid var(--border);
+    padding: 4px 6px;
+    vertical-align: top;
+}
+
+.faq-table th {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    background: #fff;
+}
+
+.faq-question {
+    font-weight: bold;
+}
+
+.faq-answer {
+    margin-top: 6px;
+    white-space: pre-wrap;
+}
+
+.status-open {
+    color: #8a5a00;
+    font-weight: bold;
+}
+
+.status-answered {
+    color: #004a99;
+    font-weight: bold;
+}
+
+.status-published {
+    color: #006b38;
+    font-weight: bold;
+}
+
+.status-hidden,
+.status-deleted {
+    color: #777;
+    font-weight: bold;
+}
+
+.admin-card {
+    border: 1px solid #000;
+    padding: 8px;
+    margin: 12px 0;
+    max-width: 980px;
+}
+
+.admin-card textarea {
+    margin-top: 6px;
+}
+
+.admin-card .meta {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.admin-buttons {
+    margin-top: 8px;
+}
+
+.admin-buttons button {
+    margin-right: 6px;
+    margin-bottom: 6px;
+}
+
+.danger-button {
+    color: #b00000;
+}
+
+.small-note {
+    font-size: 14px;
+    color: #333;
+}
+
+@media (max-width: 760px) {
+    body.full-layout #inhalt {
+        margin-left: 6px;
+        padding-top: 10px;
+    }
+
+    #logo {
+        float: none;
+        min-height: 0;
+        margin-bottom: 8px;
+    }
+
+    #logo img {
+        height: 120px;
+        width: auto;
+    }
+
+    .faq-table,
+    .faq-table thead,
+    .faq-table tbody,
+    .faq-table tr,
+    .faq-table th,
+    .faq-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .faq-table th {
+        display: none;
+    }
+
+    .faq-table td {
+        border-bottom: none;
+    }
+
+    .faq-table tr {
+        border: 1px solid #000;
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Adminbereich v2: übersichtlichere Karten, Statusübersicht und klarere Aktionen */
+.admin-help-box {
+    border: 1px solid #000;
+    background: #f7f7f7;
+    padding: 8px;
+    margin: 10px 0 14px 0;
+    max-width: 980px;
+}
+
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    gap: 8px;
+    max-width: 980px;
+    margin: 10px 0 14px 0;
+}
+
+.admin-stat-card {
+    border: 1px solid #000;
+    background: #fff;
+    padding: 8px 10px;
+    min-height: 52px;
+}
+
+.admin-stat-number {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.admin-stat-label {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.status-open-border { border-left: 6px solid #8a5a00; }
+.status-answered-border { border-left: 6px solid #004a99; }
+.status-published-border { border-left: 6px solid #006b38; }
+.status-hidden-border { border-left: 6px solid #777; }
+
+.improved-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+    border: 1px solid #000;
+    padding: 8px;
+    max-width: 980px;
+    background: #fff;
+}
+
+.toolbar-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.toolbar-field label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.toolbar-field select,
+.toolbar-field input {
+    min-width: 230px;
+}
+
+.toolbar-search input {
+    min-width: 310px;
+}
+
+.toolbar-buttons {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.admin-small-note {
+    font-size: 13px;
+    color: #444;
+    margin: 8px 0;
+}
+
+.admin-question-list {
+    max-width: 980px;
+}
+
+.improved-admin-card {
+    background: #fff;
+    border: 1px solid #000;
+    border-left: 6px solid #999;
+    padding: 10px;
+}
+
+.admin-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.admin-card-title-area {
+    flex: 1;
+}
+
+.admin-card-meta {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #222;
+    line-height: 1.4;
+}
+
+.admin-card-meta.muted {
+    color: #555;
+}
+
+.status-badge {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #000;
+    padding: 2px 7px;
+    white-space: nowrap;
+    background: #f5f5f5;
+}
+
+.status-badge.status-open { color: #8a5a00; }
+.status-badge.status-answered { color: #004a99; }
+.status-badge.status-published { color: #006b38; }
+.status-badge.status-hidden { color: #555; }
+.status-badge.status-deleted { color: #777; }
+
+.admin-question-box {
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    padding: 8px 0;
+    margin: 8px 0;
+}
+
+.admin-section-label {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 6px 0 4px 0;
+}
+
+.admin-contact-note,
+.admin-answer-hint {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #444;
+    margin-top: 5px;
+}
+
+.improved-admin-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 9px;
+}
+
+.improved-admin-buttons button {
+    margin-right: 0;
+}
+
+.primary-button {
+    border: 1px solid #006b38;
+    color: #006b38;
+    font-weight: bold;
+}
+
+.secondary-button {
+    border: 1px solid #777;
+}
+
+.admin-empty-state {
+    border: 1px solid #000;
+    background: #f7f7f7;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+.admin-empty-state p {
+    margin: 6px 0 0 0;
+}
+
+.easteregg-note {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #555;
+    border-left: 3px solid var(--fh-green);
+    padding: 2px 0 2px 6px;
+    margin: 0 0 10px 0;
+    opacity: 0.82;
+}
+
+.easteregg-note:hover {
+    opacity: 1;
+}
+
+@media (max-width: 760px) {
+    .admin-dashboard {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+    }
+
+    .toolbar-field,
+    .toolbar-field select,
+    .toolbar-field input,
+    .toolbar-search input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .toolbar-buttons {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .admin-card-header {
+        flex-direction: column;
+    }
+}
+
+/* Adminbereich v3: Filter zuerst, danach bearbeitbare Tabelle */
+.admin-filter-panel {
+    align-items: flex-end;
+}
+
+.admin-help-box {
+    border: 1px solid #777;
+    background: #f7f7f7;
+    padding: 8px;
+    margin: 12px 0;
+    max-width: 980px;
+}
+
+.admin-table-wrapper {
+    width: 100%;
+    max-width: 1160px;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.admin-edit-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 980px;
+    background: #fff;
+}
+
+.admin-edit-table th,
+.admin-edit-table td {
+    border: 1px solid #000;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.admin-edit-table th {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    background: #f4f4f4;
+}
+
+.admin-edit-table select,
+.admin-edit-table textarea {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+
+.admin-edit-table textarea {
+    min-height: 90px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.admin-row-question {
+    min-width: 220px;
+}
+
+.admin-row-answer {
+    min-width: 260px;
+}
+
+.admin-id-cell {
+    width: 90px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.admin-actions-cell {
+    width: 110px;
+}
+
+.admin-actions-cell button {
+    display: block;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.admin-row-status,
+.admin-row-category {
+    min-width: 150px;
+}
+
+#admin-result-summary {
+    font-weight: bold;
+}
+
+/* Kategorieverwaltung und Status-Hilfe im Adminbereich */
+.admin-help-details,
+.admin-category-panel {
+    border: 1px solid #b5b5b5;
+    background: #f7f7f7;
+    padding: 12px;
+    margin: 14px 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.admin-help-details summary {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.admin-help-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 8px;
+}
+
+.admin-help-table th,
+.admin-help-table td {
+    padding: 7px;
+    vertical-align: top;
+}
+
+.admin-category-panel h4 {
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
+.admin-category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    gap: 14px;
+    align-items: end;
+}
+
+.admin-category-grid input,
+.admin-category-grid select {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 7px;
+}
+
+.admin-category-grid button {
+    width: 100%;
+}
+
+@media (max-width: 800px) {
+    .admin-category-grid {
+        grid-template-columns: 1fr;
+    }
+}

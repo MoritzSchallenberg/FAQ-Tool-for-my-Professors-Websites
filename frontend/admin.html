@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>FAQ Adminbereich</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="https://www.fh-aachen.de/typo3conf/ext/fhac_design_2012/Resources/Public/Css/FhOLD.css?1612433004" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/style.css" media="all">
+</head>
+<body class="full-layout">
+<div id="seite">
+    <div id="header">
+        <div id="topnavi">Modul 8210518 <span data-course-name>Elektrotechnik/Elektronik</span> - FAQ Admin</div>
+    </div>
+
+    <div id="headnavi">
+        <span class="passiv"><a href="/">FAQ Übersicht</a></span>
+        <span class="passiv"><a href="/ask">Frage stellen</a></span>
+        <span class="passiv"><a href="/admin">Adminbereich</a></span>
+    </div>
+
+    <div id="logo">
+        <a href="/" title="FAQ Startseite">
+            <img src="https://services.fh-aachen.de/img/fh-logo-left.svg" width="57" height="194" alt="LOGO der FH Aachen" title="zur FAQ Startseite">
+        </a>
+    </div>
+
+    <div id="inhalt" class="csc-default">
+        <h3>FAQ Adminbereich</h3>
+        <p>Hier können eingereichte Fragen gefiltert, direkt in einer Tabelle bearbeitet und anschließend gespeichert werden.</p>
+
+        <div class="admin-dashboard" aria-label="FAQ Statusübersicht">
+            <div class="admin-stat-card status-open-border">
+                <span id="stat-open" class="admin-stat-number">–</span>
+                <span class="admin-stat-label">Offen</span>
+            </div>
+            <div class="admin-stat-card status-answered-border">
+                <span id="stat-answered" class="admin-stat-number">–</span>
+                <span class="admin-stat-label">Beantwortet</span>
+            </div>
+            <div class="admin-stat-card status-published-border">
+                <span id="stat-published" class="admin-stat-number">–</span>
+                <span class="admin-stat-label">Veröffentlicht</span>
+            </div>
+            <div class="admin-stat-card status-hidden-border">
+                <span id="stat-hidden" class="admin-stat-number">–</span>
+                <span class="admin-stat-label">Ausgeblendet</span>
+            </div>
+        </div>
+
+        <div class="admin-help-box">
+            <strong>Ablauf:</strong> Wählen Sie zuerst Status und Kategorie aus. Danach erscheinen nur die passenden Fragen in der Tabelle. Frage, Antwort, Kategorie und Status können direkt in der Tabelle angepasst werden.
+        </div>
+
+        <details class="admin-help-details" open>
+            <summary>Status-Erklärung anzeigen/verstecken</summary>
+            <table class="admin-help-table" rules="all" frame="border">
+                <tr>
+                    <th>Status</th>
+                    <th>Bedeutung</th>
+                </tr>
+                <tr>
+                    <td><strong>Offen</strong></td>
+                    <td>Die Frage wurde eingereicht, aber noch nicht beantwortet.</td>
+                </tr>
+                <tr>
+                    <td><strong>Beantwortet</strong></td>
+                    <td>Eine Antwort wurde gespeichert, ist aber noch nicht öffentlich sichtbar.</td>
+                </tr>
+                <tr>
+                    <td><strong>Veröffentlicht</strong></td>
+                    <td>Frage und Antwort sind öffentlich im FAQ sichtbar.</td>
+                </tr>
+                <tr>
+                    <td><strong>Ausgeblendet</strong></td>
+                    <td>Die Frage bleibt gespeichert, ist aber nicht öffentlich sichtbar.</td>
+                </tr>
+            </table>
+        </details>
+
+        <div class="admin-category-panel" aria-label="Kategorieverwaltung">
+            <h4>Kategorien verwalten</h4>
+            <p class="admin-small-note">Hier können neue Kategorien hinzugefügt oder nicht mehr benötigte Kategorien entfernt werden. Fragen gehen beim Entfernen einer Kategorie nicht verloren.</p>
+
+            <div class="admin-category-grid">
+                <div class="toolbar-field">
+                    <label for="add-category-name">Neue Kategorie:</label>
+                    <input type="text" id="add-category-name" placeholder="z. B. Operationsverstärker">
+                    <button type="button" id="add-category-button">Kategorie hinzufügen</button>
+                </div>
+
+                <div class="toolbar-field">
+                    <label for="remove-category-select">Kategorie entfernen:</label>
+                    <select id="remove-category-select"></select>
+                    <button type="button" id="remove-category-button" class="danger-button">Kategorie entfernen</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-toolbar improved-toolbar admin-filter-panel" aria-label="FAQ Filter">
+            <div class="toolbar-field">
+                <label for="admin-status-filter">Status:</label>
+                <select id="admin-status-filter">
+                    <option value="open">Offene Fragen</option>
+                    <option value="answered">Beantwortet, aber nicht veröffentlicht</option>
+                    <option value="published">Veröffentlicht</option>
+                    <option value="hidden">Ausgeblendet</option>
+                    <option value="all">Alle außer gelöscht</option>
+                </select>
+            </div>
+
+            <div class="toolbar-field">
+                <label for="admin-category-filter">Kategorie:</label>
+                <select id="admin-category-filter">
+                    <option value="">Alle Kategorien</option>
+                </select>
+            </div>
+
+            <div class="toolbar-field toolbar-search">
+                <label for="admin-search-input">Suche:</label>
+                <input type="search" id="admin-search-input" placeholder="Frage, Antwort, Kategorie oder ID suchen">
+            </div>
+
+            <div class="toolbar-buttons">
+                <button type="button" id="show-admin-questions-button">Fragen anzeigen</button>
+                <button type="button" id="refresh-admin-button">Aktualisieren</button>
+                <button type="button" id="logout-button">Logout</button>
+            </div>
+        </div>
+
+        <p id="admin-last-updated" class="admin-small-note">Noch nicht geladen.</p>
+        <div id="admin-message" class="message" hidden></div>
+
+        <div id="admin-filter-hint" class="admin-empty-state">
+            <strong>Noch keine Fragen angezeigt.</strong>
+            <p>Wählen Sie Status und Kategorie aus und klicken Sie anschließend auf „Fragen anzeigen“.</p>
+        </div>
+
+        <p id="admin-result-summary" class="admin-small-note" hidden></p>
+
+        <div id="admin-table-wrapper" class="admin-table-wrapper" hidden>
+            <table class="admin-edit-table" id="admin-edit-table" rules="all" frame="border">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Kategorie</th>
+                        <th>Frage</th>
+                        <th>Antwort</th>
+                        <th>Aktion</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-question-list"></tbody>
+            </table>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<script src="/static/script.js"></script>
+</body>
+</html>
