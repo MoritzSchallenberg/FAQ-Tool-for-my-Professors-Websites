@@ -1,75 +1,111 @@
-# FAQ Tool PIKS - Prof.-Schmidt-Version
+# FAQ Tool for Professor Websites
 
-Diese Version ist nur fuer die Integration in die bestehende PHP/PostgreSQL-Webseite gedacht.
-Alle Python-, FastAPI- und JSON-Demo-Dateien wurden entfernt. Enthalten ist aber ein
-kleines PHP-Frontend und PHP-Backend, damit Studierende wieder Fragen stellen koennen.
+Ein lokales FAQ-Tool für Professoren-Websites.  
+Das Projekt ermöglicht es, häufig gestellte Fragen übersichtlich darzustellen und über eine lokale Anwendung zu verwalten.
 
-## Enthaltene Dateien
+## Ziel des Projekts
+
+Das Tool wurde entwickelt, um wiederkehrende Fragen von Studierenden strukturiert zu sammeln und einfach bereitzustellen.  
+Dadurch können Informationen zentral gepflegt und schneller gefunden werden.
+
+## Funktionen
+
+- Anzeige von FAQ-Fragen und Antworten
+- Strukturierte Speicherung der Inhalte
+- Lokale Ausführung über Python
+- HTML-Seiten für die Benutzeroberfläche
+- JSON-Datei zur Speicherung der FAQ-Daten
+
+## Projektstruktur
 
 ```text
-database/
-  01_schema_extension_prof_schmidt.sql
-  02_example_start_categories.sql
-  03_render_queries.sql
-
-backend/
-  faq_helpers.php
-
-frontend/
-  faq_public_page.php
-  faq_ask_page.php
-
-php_integration/
-  faq_public_snippet.php
-  faq_ask_snippet.php
-
-anleitung/
-  Anleitung_Prof_Schmidt.docx
+FAQ-Tool-for-my-Professors-Websites
+│
+├── app.py
+├── data.json
+├── index.html
+├── ...
+└── README.md
 ```
 
-## Grundstruktur
+## Voraussetzungen
 
-Die Datenbank arbeitet mit zwei neuen Tabellen:
+Für die Ausführung wird Python benötigt.
 
-- `qaitem`: speichert Kategorien, Fragen und Antworten.
-- `itemrelation`: verbindet Kurs, Kategorie, Frage und Antwort.
-
-Die vorhandene Tabelle `courseinstance` wird vorausgesetzt und nicht veraendert.
-
-## Frontend und Backend
-
-- `frontend/faq_public_page.php` ist eine einfache Beispielseite fuer die FAQ-Anzeige.
-- `frontend/faq_ask_page.php` ist eine einfache Beispielseite fuer das Frageformular.
-- `backend/faq_helpers.php` enthaelt die PHP-Funktionen zum Suchen des Kurses, Laden der Kategorien und Speichern neuer Fragen.
-- `php_integration/faq_public_snippet.php` und `php_integration/faq_ask_snippet.php` koennen direkt in die bestehende Website eingebunden werden.
-
-Die Frontend-Dateien sind bewusst PHP-Dateien, nicht statisches HTML. Grund: Nur PHP kann direkt mit der vorhandenen PostgreSQL-Verbindung arbeiten und Fragen in `qaitem`/`itemrelation` speichern.
-
-## Wichtig vor der Integration
-
-Die E-Mail nennt `ci.bi_id AS id`. Deshalb nutzt `backend/faq_helpers.php` standardmaessig:
-
-```sql
-SELECT ci.bi_id AS id
-FROM courseinstance ci
+```bash
+python --version
 ```
 
-Falls die echte Kurs-ID in der bestehenden Datenbank anders heisst, muss diese eine Abfrage
-in `faq_lookup_course_id()` angepasst werden.
+Falls Python noch nicht installiert ist:  
+https://www.python.org/
 
-## Reihenfolge
+## Installation
 
-1. Datenbank sichern.
-2. `database/01_schema_extension_prof_schmidt.sql` in PostgreSQL ausfuehren.
-3. Kurs-ID der passenden `courseinstance` bestimmen.
-4. Kategorien anlegen und ueber `itemrelation.parent_course` mit dem Kurs verknuepfen.
-5. `backend/faq_helpers.php` mit hochladen.
-6. `php_integration/faq_public_snippet.php` an der FAQ-Anzeigestelle einbinden.
-7. `php_integration/faq_ask_snippet.php` an der Frageformular-Stelle einbinden.
-8. Alternativ die Beispielseiten aus `frontend/` als Startpunkt verwenden.
-9. Antworten spaeter als `qaitem` mit `type='answer'` anlegen.
-10. Antworten ueber `itemrelation` unter die passende Frage haengen.
-11. Frage und Antwort auf `status='published'` setzen, damit sie oeffentlich erscheinen.
+Repository herunterladen:
 
-Details stehen in `anleitung/Anleitung_Prof_Schmidt.docx`.
+```bash
+git clone https://github.com/MoritzSchallenberg/FAQ-Tool-for-my-Professors-Websites.git
+```
 
+In den Projektordner wechseln:
+
+```bash
+cd FAQ-Tool-for-my-Professors-Websites
+```
+
+## Startanleitung
+
+Das Python-Skript starten:
+
+```bash
+python app.py
+```
+
+Danach kann die lokale Website im Browser geöffnet werden.
+
+Beispiel:
+
+```text
+http://localhost:5000
+```
+
+## Bedienung
+
+1. Anwendung starten.
+2. Lokale Website im Browser öffnen.
+3. FAQ-Fragen ansehen.
+4. Inhalte über die vorhandene Struktur verwalten.
+
+## Beispiel
+
+### Frage
+
+```text
+Wann findet die Prüfung statt?
+```
+
+### Antwort
+
+```text
+Die Prüfungstermine werden über die offiziellen Hochschulkanäle veröffentlicht.
+```
+
+## Verwendete Technologien
+
+- Python
+- HTML
+- CSS
+- JSON
+
+## Mögliche Verbesserungen
+
+- Suchfunktion für Fragen
+- Kategorien für verschiedene Themenbereiche
+- Bearbeiten und Löschen von Fragen direkt über die Website
+- Admin-Bereich für Professoren oder Mitarbeitende
+- Import und Export der FAQ-Daten
+- Besseres responsives Design für Smartphone und Tablet
+
+## Hinweis
+
+Das Projekt ist als lokales Tool gedacht und kann als Grundlage für eine spätere Integration in eine bestehende Professoren-Website dienen.
